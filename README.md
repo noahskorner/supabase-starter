@@ -50,4 +50,3 @@ Make sure you have the following dependencies installed:
    ```
 
    The application will now be available at [http://localhost:3000](http://localhost:3000).
-# supabase-starter
