@@ -1,5 +1,6 @@
-import { createClient } from "@/utils/supabase/server";
+import { createServerClient } from "@/utils/create-server-client";
 import { NextResponse } from "next/server";
+import { ROUTES } from "../../routes";
 
 export async function GET(request: Request) {
   // The `/auth/callback` route is required for the server-side auth flow implemented
@@ -11,7 +12,7 @@ export async function GET(request: Request) {
   const redirectTo = requestUrl.searchParams.get("redirect_to")?.toString();
 
   if (code) {
-    const supabase = await createClient();
+    const supabase = await createServerClient();
     await supabase.auth.exchangeCodeForSession(code);
   }
 
@@ -20,5 +21,5 @@ export async function GET(request: Request) {
   }
 
   // URL to redirect to after sign up process completes
-  return NextResponse.redirect(`${origin}/protected`);
+  return NextResponse.redirect(`${origin}${ROUTES.dashboard}`);
 }
